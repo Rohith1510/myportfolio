@@ -1,94 +1,179 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ExternalLink, Github } from "lucide-react"
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { projects, archive } from "@/lib/portfolio";
+import { ProjectLink } from "@/components/project-links";
 
 export default function Projects() {
-  const projects = [
-    
-    {
-      title: "Decentralized Aid Distribution System ",
-      description:
-        "Aid_Net is a blockchain-based decentralized platform designed to revolutionize emergency aid distribution and management. The system enables direct, transparent, and efficient delivery of humanitarian assistance during crisis situations.",
-      image: "/aidnet.png",
-      technologies: ["Next.js", "TypeScript","Tailwind CSS","Hardhat","Solidity","Ethereum",],
-      liveUrl: "#",
-      githubUrl: "https://github.com/Rohith1510/Aid_Net",
-    },
-    {
-        title: "Decentralised Social Media Application",
-        description:
-          "Eco Sync is a Decentralised Social Media Application for Connecting Like minded people for the Substantial Development.",
-        image: "/EcoSync.png",
-        technologies: ["React", "Nextjs", "Typescript", "TailwindCSS","Hardhat", "Solidity", "Blockchain"],
-        liveUrl: "#",
-        githubUrl: "https://github.com/Rithik2211/eco-sync-main",
-      },
-    // {
-    //   title: "Health & Fitness Tracker",
-    //   description:
-    //     "A mobile application for tracking fitness activities, nutrition, and health metrics with data visualization.",
-    //   image: "/placeholder.svg?height=300&width=600",
-    //   technologies: ["React Native", "GraphQL", "AWS", "D3.js"],
-    //   liveUrl: "#",
-    //   githubUrl: "#",
-    // },
-    // {
-    //   title: "Real Estate Marketplace",
-    //   description: "A platform for property listings with advanced search, filtering, and virtual tour capabilities.",
-    //   image: "/placeholder.svg?height=300&width=600",
-    //   technologies: ["Vue.js", "Django", "PostgreSQL", "Google Maps API"],
-    //   liveUrl: "#",
-    //   githubUrl: "#",
-    // },
-  ]
-
+  const [silent, sourcerer, promptora, aidnet] = projects;
   return (
-    <section id="projects" className="py-20 bg-muted/30">
-      <div className="container px-4 md:px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Featured Projects</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">A selection of my recent work and personal projects</p>
+    <section
+      id="projects"
+      className="work-section container"
+      aria-labelledby="work-title"
+    >
+      <div className="section-heading">
+        <div className="section-index">
+          <span>01</span>
+          <p>Selected work</p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <Card key={index} className="overflow-hidden flex flex-col h-full">
-              <div className="relative h-48 w-full">
-                <Image src={project.image || "/placeholder.svg"} alt={project.title} fill className="object-cover" />
-              </div>
-              <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <p className="text-muted-foreground mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, i) => (
-                    <Badge key={i} variant="secondary">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-              <CardFooter className="flex gap-4">
-                <Button asChild variant="outline" size="sm">
-                  <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="sm">
-                  <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Github className="mr-2 h-4 w-4" /> Code
-                  </Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+        <div>
+          <h2 id="work-title">
+            A few ideas
+            <br />
+            that <em>made it out.</em>
+          </h2>
+          <p>
+            Real products. Clear ownership.
+            <br />A look at what I built, and why it mattered.
+          </p>
         </div>
       </div>
+      <article className="sourcerer-feature">
+        <Image
+          className="sourcerer-mark"
+          src="/Sourcerer_logo.jpg"
+          alt="Sourcerer logo"
+          width={76}
+          height={76}
+        />
+        <div className="sourcerer-story">
+          <p className="project-status-label">Deprecated by the organization</p>
+          <p className="project-meta">
+            PROQUBE.AI / AI TALENT SOURCING / 2025—26
+          </p>
+          <h3>
+            <Link href="/projects/sourcerer">The ten-day launch.</Link>
+          </h3>
+          <p>
+            {sourcerer.summary} I also built customer workflows, backend
+            services, and APIs for the AAFN B2B marketplace.
+          </p>
+          <div className="project-actions">
+            <ProjectLink href="/projects/sourcerer">
+              Read the launch story
+            </ProjectLink>
+            <span className="role-note">Core engineer · Team launch</span>
+          </div>
+        </div>
+        <div className="sourcerer-outcome">
+          <span className="eyebrow">The outcome</span>
+          <p>
+            A first version.
+            <br />A thousand first users.
+          </p>
+          <Link
+            href="/projects/sourcerer"
+            aria-label="Read Sourcerer’s launch story"
+          >
+            <ArrowUpRight size={27} aria-hidden="true" />
+          </Link>
+        </div>
+      </article>
+      <div className="project-duet">
+        {[silent, promptora].map((project, index) => (
+          <article
+            key={project.slug}
+            className={`work-item work-item-${project.slug}`}
+          >
+            <Link
+              href={`/projects/${project.slug}`}
+              className="work-image"
+              aria-label={`Read the ${project.name} case study`}
+            >
+              <div className="work-image-top">
+                <span>
+                  0{index + 2} / {project.name}
+                </span>
+                <ArrowUpRight size={17} aria-hidden="true" />
+              </div>
+              <Image
+                src={project.image!}
+                alt={project.imageAlt!}
+                width={project.slug === "silent" ? 1440 : 1600}
+                height={project.slug === "silent" ? 1000 : 900}
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 650px"
+              />
+            </Link>
+            <div className="work-item-heading">
+              <h3>
+                <Link href={`/projects/${project.slug}`}>{project.name}</Link>
+              </h3>
+              <span className="project-meta">
+                {project.context} / {project.year}
+              </span>
+            </div>
+            <p className="work-summary">{project.summary}</p>
+            <p className="project-result">{project.outcome}</p>
+            <p className="work-stack">{project.stack.join(" / ")}</p>
+            <div className="project-actions">
+              <ProjectLink href={`/projects/${project.slug}`}>
+                Case study
+              </ProjectLink>
+              <ProjectLink href={project.links[0].href}>
+                {project.links[0].label}
+              </ProjectLink>
+            </div>
+          </article>
+        ))}
+      </div>
+      <article className="aidnet-row">
+        <Link
+          href="/projects/aidnet"
+          className="aidnet-image"
+          aria-label="Read the AidNet case study"
+        >
+          <Image
+            src={aidnet.image!}
+            alt={aidnet.imageAlt!}
+            width={1891}
+            height={825}
+            sizes="(max-width: 700px) 35vw, 235px"
+          />
+        </Link>
+        <div>
+          <p className="project-meta">04 / ETHINDIA 2024 · RESCUE CHAIN</p>
+          <h3>
+            <Link href="/projects/aidnet">
+              AidNet <ArrowUpRight size={20} aria-hidden="true" />
+            </Link>
+          </h3>
+          <p>{aidnet.summary}</p>
+        </div>
+        <div className="aidnet-links">
+          <span className="project-result">ETHIndia 2024 finalist</span>
+          <ProjectLink href="/projects/aidnet">Case study</ProjectLink>
+          <ProjectLink href={aidnet.links[0].href}>Source</ProjectLink>
+        </div>
+      </article>
+      <div className="archive">
+        <div className="archive-heading">
+          <h3>Elsewhere on the workbench</h3>
+          <span className="eyebrow">Smaller builds & experiments</span>
+        </div>
+        {archive.map((item) => (
+          <a
+            className="archive-row"
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            key={item.name}
+          >
+            <span className="archive-name">{item.name}</span>
+            <span className="archive-note">{item.note}</span>
+            <span className="archive-stack">{item.stack}</span>
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+        ))}
+        <a
+          className="archive-all text-link"
+          href="https://github.com/Rohith1510?tab=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          More on GitHub <ArrowRight size={15} aria-hidden="true" />
+        </a>
+      </div>
     </section>
-  )
+  );
 }
-

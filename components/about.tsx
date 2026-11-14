@@ -1,27 +1,75 @@
 import Image from "next/image";
+import { ProjectLink } from "@/components/project-links";
+import HairlineFigure from "@/components/hairline-figure";
+
 export default function About() {
   return (
-    <section id="about" className="py-20 bg-background">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col md:flex-row gap-12 items-center">
-          <div className="md:w-1/3 flex justify-center">
-            <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-primary">
-              <Image src="/my_Img.jpg" alt="Profile" fill className="object-cover" />
-            </div>
+    <section id="about" className="about-section" aria-labelledby="about-title">
+      <div className="container">
+        <div className="section-index">
+          <span>03</span>
+          <p>A little context</p>
+        </div>
+        <div className="about-grid">
+          <div className="about-art">
+            <h2 id="about-title">
+              Always building.
+              <br />
+              <em>Always taking notes.</em>
+            </h2>
+            <HairlineFigure
+              name="fieldnotes"
+              number="02"
+              title="A place for the next question."
+              description="Research, make, explain. Repeat."
+              compact
+            />
           </div>
-          <div className="md:w-2/3">
-            <h2 className="text-3xl font-bold mb-6">About Me</h2>
-            <div className="space-y-4 text-muted-foreground">
+          <div className="about-copy">
+            <div className="about-person">
+              <Image
+                src="/my_Img.jpg"
+                alt="Rohith Pranav Bala"
+                width={84}
+                height={84}
+                sizes="84px"
+              />
+              <div>
+                <h3>Hi, I’m Rohith.</h3>
+                <p>Engineer, developer advocate, and technical storyteller.</p>
+              </div>
+            </div>
+            <p className="about-lead">
+              I enjoy the space between “what if?” and something you can
+              actually use.
+            </p>
+            <p>
+              I work across product engineering, AI, and Web3, and I’m
+              interested in Developer Relations roles that connect building with
+              developer education and community. Hackathons taught me to decide
+              and ship under a deadline. Production work taught me to care just
+              as much about what happens after launch.
+            </p>
+            <p>
+              I also research and write technology stories for RuntimeBRT, and
+              teach blockchain part-time. Building something and explaining it
+              clearly both begin with asking better questions.
+            </p>
+            <div id="skills" className="skills-note">
+              <p className="eyebrow">Tools I reach for</p>
               <p>
-                Hey there! I&apos;m Rohith Pranav Bala, a CSE undergraduate with hands-on experience in frontend development, blockchain, and Web3. I’m passionate about building impactful tech solutions that bridge innovation and efficiency.
+                TypeScript · React · Next.js · Python · SQL
+                <br />
+                REST APIs · Solidity · LLM integrations
               </p>
-              <p>
-                I&apos;ve actively participated in and been recognized at various tech events, conferences, and competitions, constantly pushing boundaries in the ever-evolving tech space. Always eager to learn, collaborate, and create something extraordinary!
-              </p>
-              <p>
-                When I&apos;m not coding, you can find me exploring new technologies, contributing to open-source projects,
-                or enjoying outdoor activities like travel and photography.
-              </p>
+            </div>
+            <div id="education" className="education-note">
+              <p className="eyebrow">Education / 2022—2026</p>
+              <h3>B.E. in Computer Science and Engineering</h3>
+              <p>Dr. N.G.P. Institute of Technology, Coimbatore</p>
+              <ProjectLink href="/Full_Resume.pdf">
+                View credentials
+              </ProjectLink>
             </div>
           </div>
         </div>
