@@ -1,0 +1,4 @@
+root = true
+
+[*.css]
+charset = utf-8

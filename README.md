@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rohith Pranav Bala — Portfolio
 
-## Getting Started
+The `New` branch redesign uses a white and ink palette, cobalt accents, Geist typography with Instrument Serif display accents, and two original interactive Hairline figures. Built on the existing Next.js 15, React 19, Tailwind CSS 4, and Radix/shadcn primitives. All fonts and assets are served locally.
 
-First, run the development server:
+Requires Node.js 22.18 or newer.
 
-```bash
+## Development and preview
+
+```sh
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. Use `npm.cmd` on Windows PowerShell if execution policy blocks `npm.ps1`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm run lint
+npm run typecheck
+npm run test:e2e
+npm run build
+npm run preview
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The production build is a static export in `out/`; production build cache is in `.next/`, and development uses `.next-dev/` so the two commands cannot overwrite each other’s manifest files. The included `preview` / `start` server supports clean project URLs and the custom 404. For Vercel, retain the existing Next.js project setup. No new hosting account is required.
 
-## Learn More
+The browser suite uses installed Microsoft Edge and checks 390px, 768px, and 1440px. It covers existing navigation, links, images, keyboard access, contrast, reduced motion, all case studies, and Hairline autoplay and client navigation. `TEST_BASE_URL` can point the suite at the separately started production preview. Generated screenshots and reports go into ignored `test-results/`.
 
-To learn more about Next.js, take a look at the following resources:
+## Original Hairline figures
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Assembly:** a layered desktop instrument; pointing at its interface, circuit deck, or base opens that part for inspection.
+- **Fieldnotes:** a paper organizer; pointing at a research sheet fans the papers into a reading arrangement.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Both figures run directly in the page and automatically tour while visible. Pointer interaction and keyboard focus pause the tour; reduced-motion users get a still, pointer-responsive figure. No playback buttons are shown. The page keeps the 400×320 drawing ratio so pointer hit areas stay aligned on mobile. The site follows the operating-system theme initially, with a header toggle that saves an explicit light/dark preference. Standalone figure artifacts retain both themes and the original intensity control.
 
-## Deploy on Vercel
+Source and reproduction:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sh
+npm run artwork:build
+npm run artwork:check
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Source: `artwork/assembly.js`, `artwork/fieldnotes.js`. Unchanged official Hairline engine and skill helpers: `artwork/vendor/hairline/`. The look helper uses installed Edge on this Windows setup. Normal site builds do not run a browser or need the upstream skill installed.
+
+Standalone artifacts: `public/figures/hairline-assembly.html` and `public/figures/hairline-fieldnotes.html`. Integration bundle: `public/figures/portfolio-figures.js`. Generated validation reports go into `test-results/`.
+
+## Content
+
+- Repeated portfolio content: `lib/portfolio.ts`.
+- Current résumé: `public/Full_Resume.pdf`.
+- Homepage: `app/page.tsx`; case studies: `app/projects/[slug]/page.tsx`.
+- Content decisions, verified sources, and owner-review items: `CONTENT-NOTES.md`.
+- External link check: `node scripts/check-links.mjs`.
+
+Existing public section fragments and case-study URLs are preserved. The redesign does not add unverified project metrics or change the source-backed experience timeline.
+Third-party attribution: `THIRD-PARTY-NOTICES.md`.
+
+Development caches (`.next-dev/`), production output (`.next/`, `out/`), and test reports (`test-results/`) are generated locally and ignored by Git. They can be deleted after stopping the development server; the relevant commands recreate them.

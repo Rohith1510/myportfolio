@@ -1,81 +1,45 @@
-"use client"
-
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import ThemeToggle from "@/components/theme-toggle";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { profile } from "@/lib/portfolio";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Experience", href: "#experience" },
-    { name: "Projects", href: "#projects" },
-    { name: "Achievements", href: "#achievements" },
-    { name: "Publications", href: "#publications" },
-    { name: "Education", href: "#education" },
-    { name: "Contact", href: "#contact" },
-  ]
-
   return (
-    <header
-      className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300",
-        scrolled ? "bg-background/95 backdrop-blur-sm shadow-sm" : "bg-transparent",
-      )}
-    >
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="font-bold text-xl">
-          Rohith&apos;s Portfolio
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <header className="site-header container">
+        <Link
+          href="/"
+          className="wordmark"
+          aria-label="Rohith Pranav Bala, home"
+        >
+          <span className="brand-mark">
+            rpb<span>.</span>
+          </span>
+          <span className="wordmark-caption">
+            Engineering
+            <br />& a little curiosity.
+          </span>
         </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          {navLinks.map((link) => (
-            <Link key={link.name} href={link.href} className="text-sm font-medium hover:text-primary transition-colors">
-              {link.name}
-            </Link>
-          ))}
+        <nav aria-label="Main navigation">
+          <Link href="/#projects">Work</Link>
+          <Link href="/#experience">Experience</Link>
+          <Link href="/#about">About</Link>
         </nav>
-
-        {/* Mobile Navigation Toggle */}
-        <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          <span className="sr-only">Toggle menu</span>
-        </Button>
-      </div>
-
-      {/* Mobile Navigation Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-background border-t">
-          <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium py-2 hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
+        <div className="header-actions">
+          <ThemeToggle />
+          <a
+            className="resume-link"
+            href={profile.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Résumé <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
         </div>
-      )}
-    </header>
-  )
+      </header>
+    </>
+  );
 }
-

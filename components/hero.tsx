@@ -1,48 +1,81 @@
-import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
-import Link from "next/link"
+import Availability from "@/components/availability";
+import Link from "next/link";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import HairlineFigure from "@/components/hairline-figure";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen flex items-center justify-center bg-gradient-to-b from-background to-muted/50">
-      <div className="container px-4 md:px-6 flex flex-col items-center text-center space-y-8">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
-          <span className="text-primary">Rohith Pranav Bala</span>
-        </h1>
-        <h2 className="text-2xl md:text-4xl font-semibold">CSE Undergrad & Developer</h2>
-        <p className="max-w-[700px] text-muted-foreground md:text-xl">
-          Building innovative solutions with cutting-edge technologies. Passionate about creating impactful digital
-          experiences.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button asChild size="lg">
-            <Link href="#contact">
-              Contact Me <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-          <Button variant="outline" size="lg" asChild>
-            <Link href="#projects">View Projects</Link>
-          </Button>
+    <section className="hero container" aria-labelledby="hero-title">
+      <div className="hero-grid">
+        <div className="hero-copy">
+          <Availability />
+          <p className="hero-intro">
+            <span className="intro-rule" aria-hidden="true" /> Rohith Pranav
+            Bala <span>/ Engineering & DevRel</span>
+          </p>
+          <p className="hero-wins">7+ Hackathon Wins</p>
+          <h1 id="hero-title">
+            From first idea
+            <br />
+            to <em>real product.</em>
+          </h1>
+          <p className="hero-description">
+            I build AI products and Web3 systems. At ProQube.AI, I helped ship
+            Sourcerer in <strong>10 days</strong>—with{" "}
+            <strong>1,000+ users</strong> onboarded in its first week.
+          </p>
+          <div className="hero-actions">
+            <Button asChild className="primary-action">
+              <Link href="#projects">
+                View selected work <ArrowDown size={15} aria-hidden="true" />
+              </Link>
+            </Button>
+            <a className="hero-contact" href="#contact">
+              Let’s talk <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </div>
+          <p className="hero-location">
+            <span aria-hidden="true" /> Coimbatore, India{" "}
+            <span className="location-divider">/</span> Open to engineering &
+            DevRel roles
+          </p>
+        </div>
+        <div className="hero-art">
+          <HairlineFigure
+            name="assembly"
+            number="01"
+            title="Ideas are only the beginning."
+            description="A small study in how the pieces come together."
+          />
         </div>
       </div>
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <Link href="#about" className="text-muted-foreground hover:text-primary transition-colors">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M12 5v14M5 12l7 7 7-7" />
-          </svg>
+      <div className="launch-proof" aria-label="Sourcerer launch outcomes">
+        <div className="proof-context">
+          <span className="eyebrow">Production work / ProQube.AI</span>
+          <p>
+            Core engineer on{" "}
+            <Link href="/projects/sourcerer">
+              Sourcerer <ArrowUpRight size={13} aria-hidden="true" />
+            </Link>
+          </p>
+        </div>
+        <div className="proof-metric">
+          <strong>
+            10<span> days</span>
+          </strong>
+          <p>from zero to production</p>
+        </div>
+        <div className="proof-metric">
+          <strong>
+            1,000<span>+</span>
+          </strong>
+          <p>users onboarded in week one</p>
+        </div>
+        <Link href="/projects/sourcerer" className="proof-link">
+          Behind the launch <ArrowUpRight size={17} aria-hidden="true" />
         </Link>
       </div>
     </section>
-  )
+  );
 }
-

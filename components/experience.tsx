@@ -1,101 +1,82 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { BriefcaseIcon } from "lucide-react"
+import { experiences } from "@/lib/portfolio";
+import { ProjectLink } from "@/components/project-links";
+import Timeline from "@/components/timeline";
 
 export default function Experience() {
-  const experiences = [
-    // {
-    //   title: "Senior Frontend Developer",
-    //   company: "Tech Innovations Inc.",
-    //   period: "2021 - Present",
-    //   description:
-    //     "Leading the frontend development team in building scalable web applications using React and Next.js. Implementing best practices for code quality and performance optimization.",
-    //   responsibilities: [
-    //     "Architected and developed the company's flagship SaaS product",
-    //     "Mentored junior developers and conducted code reviews",
-    //     "Implemented CI/CD pipelines for automated testing and deployment",
-    //     "Reduced application load time by 40% through performance optimizations",
-    //   ],
-    //   technologies: ["React", "Next.js", "TypeScript", "Redux", "Tailwind CSS"],
-    // },
-    {
-      title: "Frontend Engineer Intern",
-      company: "Invsto",
-      period: "2024(Jul) - 2024(Dec)",
-      description:
-        "Developed Responsive web applications and collaborated with UX designers to implement pixel-perfect interfaces.",
-      responsibilities: [
-        "Built and maintained multiple client-facing web applications",
-        "Migrated the React codebase to Next.js with TypeScript and Tailwind CSS for better performance and scalability.",
-        "Refactored legacy code to improve maintainability and performance",
-        "Built and integrated Web3 features, including cryptocurrency and blockchain functionalities.",
-      ],
-      technologies: ["React", "Nextjs", "Typescript","TailwindCSS","Zustand", "RESTful APIs","Blockchain"],
-    },
-    // {
-    //   title: "Web Developer Intern",
-    //   company: "StartUp Ventures",
-    //   period: "2018 - 2019",
-    //   description:
-    //     "Assisted in developing web applications and gained hands-on experience with modern web technologies.",
-    //   responsibilities: [
-    //     "Developed and maintained company website and internal tools",
-    //     "Created responsive layouts and implemented UI components",
-    //     "Assisted senior developers with bug fixes and feature implementations",
-    //     "Participated in code reviews and team meetings",
-    //   ],
-    //   technologies: ["HTML5", "CSS3", "JavaScript", "jQuery", "Bootstrap"],
-    // },
-  ]
-
   return (
-    <section id="experience" className="py-20 bg-background">
-      <div className="container px-4 md:px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Professional Experience</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">My professional journey and career highlights</p>
+    <section
+      id="experience"
+      className="experience-section container"
+      aria-labelledby="experience-title"
+    >
+      <div className="section-heading">
+        <div className="section-index">
+          <span>02</span>
+          <p>Experience</p>
         </div>
-
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <Card key={index} className="relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-primary"></div>
-              <CardHeader>
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div>
-                    <CardTitle className="flex items-center">
-                      <BriefcaseIcon className="mr-2 h-5 w-5 text-primary" />
-                      {exp.title}
-                    </CardTitle>
-                    <CardDescription className="mt-1">
-                      {exp.company} | {exp.period}
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="mb-4 text-muted-foreground">{exp.description}</p>
-                <div className="mb-4">
-                  <h4 className="font-medium mb-2">Key Responsibilities:</h4>
-                  <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
-                    {exp.responsibilities.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {exp.technologies.map((tech, i) => (
-                    <Badge key={i} variant="secondary">
-                      {tech}
-                    </Badge>
+        <div>
+          <h2 id="experience-title">
+            Small teams.
+            <br />
+            <em>Real responsibility.</em>
+          </h2>
+          <p>
+            Shipping, teaching, and telling the story behind the technology.
+          </p>
+        </div>
+        <ProjectLink href="/Full_Resume.pdf">Full résumé</ProjectLink>
+      </div>
+      <Timeline>
+        {experiences.map((exp) => (
+          <li
+            className={`timeline-entry ${exp.id === "proqube" ? "highlight-entry" : ""}`}
+            id={`experience-${exp.id}`}
+            key={exp.id}
+          >
+            <span className="timeline-dot" aria-hidden="true" />
+            <div className="experience-date">
+              <time dateTime={exp.start}>{exp.dates}</time>
+              <span>{exp.mode}</span>
+            </div>
+            <div className="experience-content">
+              <div className="experience-heading">
+                <h3>{exp.company}</h3>
+                <p className="experience-title">{exp.title}</p>
+              </div>
+              <ul className="experience-bullets">
+                {exp.bullets.map((bullet) => (
+                  <li key={bullet}>
+                    {bullet.includes("1 million views") ? (
+                      <>
+                        {bullet.split("1 million views")[0]}
+                        <mark className="experience-metric">
+                          1 million views
+                        </mark>
+                        {bullet
+                          .split("1 million views")
+                          .slice(1)
+                          .join("1 million views")}
+                      </>
+                    ) : (
+                      bullet
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <p className="experience-skills">{exp.skills}</p>
+              {exp.links.length > 0 && (
+                <div className="experience-links">
+                  {exp.links.map((link) => (
+                    <ProjectLink href={link.href} key={link.href}>
+                      {link.label}
+                    </ProjectLink>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
+              )}
+            </div>
+          </li>
+        ))}
+      </Timeline>
     </section>
-  )
+  );
 }
-
